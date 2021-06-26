@@ -1,5 +1,4 @@
-import model.Grille;
-import util.File;
+import model.Grid;
 
 public class Play
 {
@@ -8,14 +7,14 @@ public class Play
         //File f = new File();
 		//f.printWordsStartedBy("a");
 		//f.printMotsNbLettreDebut("b", 4);
-        Grille grille = new Grille();
-        grille.creerGrille();
-        grille.afficherGrille();
-        grille.placerDefinition();
-        grille.afficherGrille();
+        Grid grille = new Grid();
+        grille.createGrid();
+        grille.displayGrid();
+        grille.setDefinition();
+        grille.displayGrid();
         System.out.print("\n");
-        grille.placerDefinition();
-        grille.afficherGrille();
+        grille.setDefinition();
+        grille.displayGrid();
         System.out.print("\n");
     }
 }
