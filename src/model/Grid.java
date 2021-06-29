@@ -9,7 +9,12 @@ public class Grid
     int height;
     int width;
     Case grid[][];
+    Definition definitions[][];
 
+
+    /**
+     * Cree la grille sur n x n
+     */
     public void createGrid()
     {
         Scanner sc = new Scanner(System.in);
@@ -29,7 +34,12 @@ public class Grid
         }
     }
 
-    public void displayGrid() {
+
+    /**
+     * Affiche la grille
+     */
+    public void displayGrid()
+    {
         for(int y = 0; y < height; y++) {
             for(int x = 0; x < width; x++) {
                 System.out.printf(" %s |", grid[x][y].getLabel());
@@ -38,30 +48,41 @@ public class Grid
         }
     }
 
-    public void setDefinition() {
-        Scanner sc = new Scanner(System.in);
-        int positionX, positionY;
 
-        do
-        {
+    /**
+     * Place une definition
+     */
+    public void setDefinition()
+    {
+        Scanner sc = new Scanner(System.in);
+        int x, y;
+
+        do {
             System.out.print("Position x de la definition: ");
-            positionX = sc.nextInt() - 1;
+            x = sc.nextInt() - 1;
 
             System.out.print("Position Y de la definition: ");
-            positionY = sc.nextInt() - 1;
-            if(positionX == grid[0].length - 1 && positionY == grid.length - 1) {
+            y = sc.nextInt() - 1;
+            if(x == grid[0].length - 1 && y == grid.length - 1) {
                 System.out.println("Choisir une autre position");
             }
-        }while(positionX == grid[0].length - 1 && positionY == grid.length - 1);
+        }while(x == grid[0].length - 1 && y == grid.length - 1);
 
 
-        grid[positionX][positionY].setLabel("D");
+        grid[x][y].setLabel("D");
         displayGrid();
 
-        choseDirection(positionX, positionY);
+        choseDirection(x, y);
     }
 
-    public void choseDirection(int definitionX, int definitionY) {
+
+    /**
+     * Choisi une direction pour la definition
+     * @param definitionX Integer definitionX
+     * @param definitionY Integer definitionY
+     */
+    public void choseDirection(int definitionX, int definitionY)
+    {
         Scanner sc = new Scanner(System.in);
         int direction;
 
@@ -76,10 +97,18 @@ public class Grid
         }while(!countEmptyCases(direction, definitionX, definitionY));
     }
 
+
+    /**
+     * Compte le nombre de cases vide sur le chemin d'une definition
+     * @param direction Integer direction
+     * @param definitionX Integer definitionX
+     * @param definitionY Integer definitionY
+     * @return boolean result
+     */
     public boolean countEmptyCases(int direction, int definitionX, int definitionY) {
-        int i = definitionX, j = definitionY, totalCasesVides = 0;
+        int i = definitionX, j = definitionY, totalEmptyCases = 0;
         boolean result = false;
-        String casesSurLeChemin = null;
+        String casesOnTheWay = "";
 
         switch (direction) {
             case 0 -> {
@@ -89,27 +118,33 @@ public class Grid
                     break;
                 }
                 while (i < grid[0].length && !grid[i][j].getLabel().equals("D")) {
-                    casesSurLeChemin = casesSurLeChemin + grid[i][j].getLabel();
-                    totalCasesVides++;
+                    if(grid[i][j].getLabel().equals(" ")) {
+                        casesOnTheWay = casesOnTheWay + ".";
+                    } else {
+                        casesOnTheWay = casesOnTheWay + grid[i][j].getLabel();
+                    }
+                    totalEmptyCases++;
                     i++;
                 }
-                System.out.println("En horizontal directe il y a " + totalCasesVides + "\n");
+                System.out.println("En horizontal directe il y a " + totalEmptyCases + "\n");
                 result = true;
             }
             case 1 -> {
-                i++;
                 j++;
-                if (j == grid.length || grid[i - 1][j].getLabel().equals("D")) {
+                if (j == grid.length || grid[i][j].getLabel().equals("D")) {
                     System.out.println("Il n'y a pas de cases libre en horizontal indirecte");
                     break;
                 }
                 while (i < grid[0].length && !grid[i][j].getLabel().equals("D")) {
-                    casesSurLeChemin = casesSurLeChemin + grid[i][j].getLabel();
-                    totalCasesVides++;
+                    if(grid[i][j].getLabel().equals(" ")) {
+                        casesOnTheWay = casesOnTheWay + ".";
+                    } else {
+                        casesOnTheWay = casesOnTheWay + grid[i][j].getLabel();
+                    }
+                    totalEmptyCases++;
                     i++;
                 }
-                totalCasesVides++;
-                System.out.println("En horizontal indirecte il y a " + totalCasesVides + "\n");
+                System.out.println("En horizontal indirecte il y a " + totalEmptyCases + "\n");
                 result = true;
             }
             case 2 -> {
@@ -119,39 +154,55 @@ public class Grid
                     break;
                 }
                 while (j < grid.length && !grid[i][j].getLabel().equals("D")) {
-                    casesSurLeChemin = casesSurLeChemin + grid[i][j].getLabel();
-                    totalCasesVides++;
+                    if(grid[i][j].getLabel().equals(" ")) {
+                        casesOnTheWay = casesOnTheWay + ".";
+                    } else {
+                        casesOnTheWay = casesOnTheWay + grid[i][j].getLabel();
+                    }
+                    totalEmptyCases++;
                     j++;
                 }
-                System.out.println("En vertical directe il y a " + totalCasesVides + "\n");
+                System.out.println("En vertical directe il y a " + totalEmptyCases + "\n");
                 result = true;
             }
             case 3 -> {
                 i++;
-                j++;
-                if (i == grid[0].length || grid[i][j - 1].getLabel().equals("D")) {
+                if (i == grid[0].length || grid[i][j].getLabel().equals("D")) {
                     System.out.println("Il n'y a pas de cases libre en vertical indirecte");
                     break;
                 }
                 while (j < grid.length && !grid[i][j].getLabel().equals("D")) {
-                    casesSurLeChemin = casesSurLeChemin + grid[i][j].getLabel();
-                    totalCasesVides++;
+                    if(grid[i][j].getLabel().equals(" ")) {
+                        casesOnTheWay = casesOnTheWay + ".";
+                    } else {
+                        casesOnTheWay = casesOnTheWay + grid[i][j].getLabel();
+                    }
+                    totalEmptyCases++;
                     j++;
                 }
-                totalCasesVides++;
-                System.out.println("En vertical indirecte il y a " + totalCasesVides + "\n");
+                System.out.println("En vertical indirecte il y a " + totalEmptyCases + "\n");
                 result = true;
             }
             default -> result = false;
         }
 
-        addWord(direction,definitionX,definitionY,totalCasesVides, casesSurLeChemin.toString());
+        System.out.println(casesOnTheWay);
+        addWord(direction, definitionX, definitionY, totalEmptyCases, casesOnTheWay);
         return result;
     }
 
-    public void addWord(int direction, int positionX, int positionY, int nbCasesVides, String casesSurLeChemin) {
+
+    /**
+     * Ajoute une mot dans la grille
+     * @param direction Integer direction
+     * @param positionX Integer positionX
+     * @param positionY Integer positionY
+     * @param nbEmptyCases Integer nbEmptyCases
+     * @param casesOnTheWay String casesOnTheWay
+     */
+    public void addWord(int direction, int positionX, int positionY, int nbEmptyCases, String casesOnTheWay) {
         File dico = new File();
-        String word = dico.getRandomWordWithLetter(casesSurLeChemin, nbCasesVides);
+        String word = dico.getRandomWordWithLetter(casesOnTheWay, nbEmptyCases);
 
         switch (direction) {
             case 0 -> {
