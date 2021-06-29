@@ -1,6 +1,5 @@
 package util;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,14 +9,14 @@ import java.util.Random;
 
 public class File
 {
-    private static final String FICHIER = "liste_francais.txt";
-    private ArrayList<String> listeDeMots = null;
+    private static final String FILE = "liste_francais.txt";
+    private ArrayList<String> wordsList = null;
 
 
     public File()
     {
         super();
-        listeDeMots = new ArrayList<>();
+        wordsList = new ArrayList<>();
         openFile();
     }
 
@@ -28,18 +27,17 @@ public class File
     private void openFile()
     {
         try {
-            InputStream flux = File.class.getResourceAsStream(FICHIER);
-            InputStreamReader lecture = new InputStreamReader(flux);
-            BufferedReader buff = new BufferedReader(lecture);
-            String ligne;
+            InputStream flux = File.class.getResourceAsStream(FILE);
+            InputStreamReader read = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(read);
+            String line;
 
-            while((ligne=buff.readLine()) != null) {
-                listeDeMots.add(ligne);
+            while((line = buff.readLine()) != null) {
+                wordsList.add(line);
             }
 
             buff.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
@@ -51,7 +49,7 @@ public class File
     public void printWords()
     {
         System.out.println("Affichage des mots présents dans le dictionnaire");
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             System.out.println(m);
         }
     }
@@ -64,7 +62,7 @@ public class File
     public void printWordsStartedBy(String s)
     {
         System.out.printf("Affichage des mots commençant par %s%n", s);
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             if(m.startsWith(s)) {
                 System.out.println(m);
             }
@@ -80,7 +78,7 @@ public class File
     public void printWordsStartedByAndBySize(String s, int i)
     {
         System.out.printf("Affichage des mots commençant par %s et qui font %s lettres de long", s, i);
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             if(m.startsWith(s) && m.length() == i) {
                 System.out.println(m);
             }
@@ -95,7 +93,7 @@ public class File
     public void printWordsNbLetters(int nb)
     {
         System.out.printf("Affichage des mots qui font %d lettres de long", nb);
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             if(m.length() == nb) {
                 System.out.println(m);
             }
@@ -113,7 +111,7 @@ public class File
         List<String> words = new ArrayList<>();
         Random rand = new Random();
 
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             if(m.length() == nb) {
                 words.add(m);
             }
@@ -132,7 +130,7 @@ public class File
     {
         List<String> words = new ArrayList<>();
 
-        for(String m : listeDeMots) {
+        for(String m : wordsList) {
             if(m.length() == nb) {
                 words.add(m);
             }
