@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class File
+public class FileManager
 {
     private static final String FILE = "liste_francais.txt";
     private ArrayList<String> wordsList = null;
 
 
-    public File()
+    public FileManager()
     {
         super();
         wordsList = new ArrayList<>();
@@ -27,7 +27,7 @@ public class File
     private void openFile()
     {
         try {
-            InputStream flux = File.class.getResourceAsStream(FILE);
+            InputStream flux = FileManager.class.getResourceAsStream(FILE);
             InputStreamReader read = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(read);
             String line;

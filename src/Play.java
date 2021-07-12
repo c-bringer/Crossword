@@ -1,5 +1,5 @@
-import model.Grid;
-import util.File;
+import controller.GridController;
+import util.FileManager;
 
 public class Play
 {
@@ -11,7 +11,7 @@ public class Play
         System.exit(1);
          */
 
-        Grid grid = new Grid();
+        GridController grid = new GridController();
         grid.createGrid();
         grid.displayGrid();
         grid.setDefinition();

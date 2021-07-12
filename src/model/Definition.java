@@ -1,24 +1,16 @@
 package model;
 
-public class Definition extends Case
+public class Definition
 {
-    String label;
-    int x;
-    int y;
-    int direction;
+    private int x;
+    private int y;
+    private int direction;
 
-    public Definition() {}
-
-    @Override
-    public String getLabel()
+    public Definition(int x, int y, int direction)
     {
-        return label;
-    }
-
-    @Override
-    public void setLabel(String label)
-    {
-        this.label = label;
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
     }
 
     public int getX()
