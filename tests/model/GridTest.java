@@ -30,12 +30,14 @@ public class GridTest
     }
 
     @BeforeAll
-    static public void initStartingTime() {
+    static public void initStartingTime()
+    {
         startedAt = Instant.now();
     }
 
     @AfterAll
-    static public void showTestDuration() {
+    static public void showTestDuration()
+    {
         Instant endedAt = Instant.now();
         long duration = Duration.between(startedAt, endedAt).toMillis();
         System.out.println(MessageFormat.format("Durée des tests : {0} ms", duration));
